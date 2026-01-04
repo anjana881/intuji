@@ -1,0 +1,14 @@
+{
+  "fname": "fname2",
+  "email": "fname3@example.com",
+  "lname": "lname2",
+  "fullname":"fullname",
+  "password":"pass123",
+"address1":"address1",
+    "state":"state1",
+    "city":"city1",
+    "zipcode":"zipcode1",
+    "mobile_number":"123456789"
+
+
+}
