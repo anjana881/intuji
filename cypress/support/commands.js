@@ -1,31 +1,4 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-// import {faker} from '@faker-js/faker';
-// // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => {
-//      cy.get('a').type(email);
-//     cy.get('a').type(password);
-// })
-
-// Cypress.Commands.add('login', () => {
-//     const randomPass = faker.internet.password();
-//    const randomEmail = faker.internet.email();
-//   cy.get("input[data-qa='login-email']").type(randomEmail);
-//     cy.get("input[placeholder='Password']").type(randomPass);
-// cy.get("button[data-qa='login-button']").click();
-//   // ... rest of login logic
-// });
-
 Cypress.Commands.add("validateBooksData", (index, book) => {
-
   cy.get(".rt-tbody .rt-tr-group")
     .eq(index)
     .within(() => {
@@ -51,16 +24,18 @@ Cypress.Commands.add("validateBooksData", (index, book) => {
         });
     });
 });
+//Add to Cart
+Cypress.Commands.add("addToCart", (productId,quantity) => {
+  for(let i=0;i<quantity;i++){
+  cy.get(`a.add-to-cart[data-product-id="${productId}"]:visible`).click();
+   cy.get(".btn.btn-success.close-modal.btn-block").click();
+  }
+});
+//Verify Product qantity command
+Cypress.Commands.add("verifyProductInCart",(productName,expectedQuantity) =>{
+cy.visit("https://automationexercise.com/view_cart")
+cy.get('.cart_description').find("a[href='/product_details/1']").should("have.text",productName);
+cy.get('.cart_quantity').find(".disabled").should("have.text",expectedQuantity);
+}
+) 
 
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
